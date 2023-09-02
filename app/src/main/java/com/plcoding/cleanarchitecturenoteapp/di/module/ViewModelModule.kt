@@ -1,5 +1,6 @@
 package com.plcoding.cleanarchitecturenoteapp.di.module
 
+import androidx.lifecycle.SavedStateHandle
 import com.plcoding.cleanarchitecturenoteapp.feature_note.domain.use_case.NoteUseCases
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.add_edit_note.AddEditNoteViewModel
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.notes.NotesViewModel
@@ -17,9 +18,10 @@ val viewModelModule = module {
 
     viewModel { provideNotesViewModel(get()) }
 
-    fun provideAddEditNoteViewModel(noteUseCases: NoteUseCases): AddEditNoteViewModel {
-        return AddEditNoteViewModel(noteUseCases)
+    fun provideAddEditNoteViewModel(noteUseCases: NoteUseCases, savedStateHandle: SavedStateHandle):
+            AddEditNoteViewModel {
+        return AddEditNoteViewModel(noteUseCases, savedStateHandle)
     }
 
-    viewModel { provideAddEditNoteViewModel(get()) }
+    viewModel { provideAddEditNoteViewModel(get(), get()) }
 }
