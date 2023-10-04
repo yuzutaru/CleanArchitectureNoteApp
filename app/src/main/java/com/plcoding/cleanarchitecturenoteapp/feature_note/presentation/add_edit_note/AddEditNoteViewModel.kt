@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
  * Created by Yustar Pramudana on 22/08/23.
  */
 
-class AddEditNoteViewModel(private val noteUseCases: NoteUseCases, savedStateHandle: SavedStateHandle): ViewModel() {
+class AddEditNoteViewModel(savedStateHandle: SavedStateHandle,
+                           private val noteUseCases: NoteUseCases
+): ViewModel() {
     private val _noteTitle = mutableStateOf(NoteTextFieldState(hint = "Enter title..."))
     val noteTitle: State<NoteTextFieldState> = _noteTitle
 
