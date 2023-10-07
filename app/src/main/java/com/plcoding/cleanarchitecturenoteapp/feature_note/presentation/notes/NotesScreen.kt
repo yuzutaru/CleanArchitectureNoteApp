@@ -38,6 +38,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.notes.components.NoteItem
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.notes.components.OrderSection
+import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.util.Screen
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
@@ -55,7 +56,9 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel = getVie
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {  },
+                onClick = {
+                    navController.navigate(Screen.AddEditNoteScreen.route)
+                },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
                 Icon(imageVector = Icons.Default.Add,
@@ -103,7 +106,12 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel = getVie
                     NoteItem(note = note,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable { },
+                            .clickable {
+                                navController.navigate(
+                                    Screen.AddEditNoteScreen.route +
+                                            "?noteId=${note.id}&noteColor=${note.color}"
+                                )
+                            },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
                             scope.launch {
